@@ -14,10 +14,10 @@ canvas = np.zeros((canvas_height, canvas_width))
 # --- Defining functions ---
 
 def fade(t):  # fade function smooths the interpolation
-    return 6*t**5 - 15*t**4 + 10*t**3
+    return 6*t**5 - 15*t**4 + 10*t**3  # without this, the linear interpolation would look jagged and mechanical at grid cell boundaries
 
 def lerp(a, b, t):  # linear interpolation between a and b
-    return a + t * (b - a)
+    return a + t * (b - a)  # this allows us to calculate the intermediate noise values between the fixed values calculated at the grid corners
 
 def generate_gradients(canvas_height, canvas_width):
     directions = np.array([[0,1], [0,-1], [1,0], [-1,0]])  # possible gradient directions (up, down, left, right)
