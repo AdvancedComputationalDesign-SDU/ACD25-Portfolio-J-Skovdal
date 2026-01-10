@@ -1,55 +1,59 @@
-"""
-Assignment 4: Agent-Based Model for Surface Panelization
-Author: Your Name
-
-Agent Simulator Template
-
-Description:
-This file defines the structural outline for stepping and visualizing
-agents within Grasshopper. No simulation logic is implemented. All behavior
-(update, responding to signals, movement, etc.) must be
-implemented inside your Agent class in `agent_builder.py`.
-
-Note: This script is intended to be used within Grasshopper's Python
-scripting component.
-"""
-
-# -----------------------------------------------------------------------------
-# Imports (extend as needed)
-# -----------------------------------------------------------------------------
 import rhinoscriptsyntax as rs
-import numpy as np
 
-# -----------------------------------------------------------------------------
+# -------------------------------
 # Retrieve agents from upstream Grasshopper component
-# -----------------------------------------------------------------------------
-# Expected pattern (example):
-# agents = x.agents  # where `x` is a stateful component instance
-# Replace `x` and the attribute name with whatever your GH setup uses.
+# -------------------------------
 
-agents = x.agents # access agents from the agents_builder component
+# `x` is the upstream component instance (from agent_builder)
+agents = x.agents if x and hasattr(x, "agents") else []
 
-# -----------------------------------------------------------------------------
-# Step simulation (delegated to Agent methods)
-# -----------------------------------------------------------------------------
-# Suggested loop structure:
-if agents is not None:
-    for agent in agents:
-        agent.update(agents)
 
-# -----------------------------------------------------------------------------
-# Visualization placeholders (Rhino + NumPy-friendly)
-# -----------------------------------------------------------------------------
-# Minimal outputs:
-# - Points representing agent positions
-# - Vectors, polylines, trails, or any custom debug geometry
+# -------------------------------
+# Step simulation
+# -------------------------------
 
-P = []  # list of position points (e.g., rs.AddPoint(...))
-V = []  # list of velocity vectors or other debug geometry
+new_agents = []
 
-# Example geometry generation (uncomment and adapt):
 for agent in agents:
-    P.append(rs.AddPoint(agent.position[0], agent.position[1], agent.position[2]))
-    # create a line or vector visualization from pos in direction vel
-    end = agent.position + agent.velocity
-    V.append(rs.AddLine(rs.coerce3dpoint(pos), rs.coerce3dpoint(end)))
+    spawned = agent.update(agents, start_surface)
+
+    if spawned:
+        new_agents.append(spawned)
+
+agents = agents + new_agents  # combine active agents and any new spawned ones
+
+
+# -------------------------------
+# Visualization outputs
+# -------------------------------
+
+P = []       # positions
+V = []       # velocity vectors
+Paths = []   # trails / paths
+
+for agent in agents:
+    # Position
+    P.append(agent.position)
+
+    # velocity as line
+    try:
+        end = rs.PointAdd(agent.position, agent.velocity)
+        V.append(rs.AddLine(agent.position, end))
+    except Exception:
+        V.append(None)
+
+    # Path history
+    if agent.path:
+        Paths.append(agent.path)
+
+
+# -------------------------------
+# Grasshopper Outputs
+# -------------------------------
+
+out_agents = agents
+out_points = P
+out_vectors = V
+out_paths = Paths
+
+print("Simulator running, total agents:", len(agents))
