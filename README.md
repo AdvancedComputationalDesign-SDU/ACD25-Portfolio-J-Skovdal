@@ -1,116 +1,28 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/mzR-KFDf)
-# ACD-E25 Portfolio Template
-
-Use this repository to publish your final portfolio as a cohesive GitHub Pages site bringing together four assignments. The front matter and navigation are pre-wired; you are expected to add/edit the content, images, and code.
-
----
-
-## 1. Fill Your Assignments
-- Edit only the **body** of each assignment `README.md` (everything below the YAML front matter) and leave the front matter intact (example below).
-
-  ```yaml
-  ---
-  layout: default
-  title: Project Documentation
-  parent: "A1: NumPy Array Manipulation for 2D Pattern Generation"
-  nav_order: 2
-  nav_exclude: false
-  search_exclude: false
-  ---
-  ```
-
-- Include (recommended): overview, methods/pseudo-code, parameters & seeds, intermediate + final results with images, reflections, AI acknowledgments (if used).
-- Add/modify code in the assignment folder; store visuals in that assignment’s `images/` folder with descriptive filenames.
-- Reference images using **relative paths** (from the Markdown file):
-  - Example: When editing `A1/README.md`, use `![caption](images/your_image.png)`
-- Do **not** edit `index.md` or `BRIEF.md` files; they provide routing and the brief content.
-
----
-
-## 2. Update Site Config
-Open `_config.yml` and set:
-- `title`: your name (used in the site header).
-- `baseurl`: `/<repo-name>`
-  - Example: if your repo is `ACD-Portfolio`, use `baseurl: /ACD-Portfolio`
-
-Do not change other settings (`remote_theme`, plugins, etc.) unless you take responsibility for implementing and debugging.
-
----
-
-## 3. Publish with GitHub Pages
-1. In GitHub, navigate to **Settings → Pages → Build and deployment**.
-2. Set **Source** to “Deploy from a branch”, select branch `main`, folder `/ (root)`, then **Save**.
-3. Wait for the first build. Your site will appear at:
-   `https://<username>.github.io/<repo-name>/`
-
-Pages rebuilds automatically after each push.
-
----
-
-## Repository Layout
-```text
-README.md          # Landing page (this file)
-_config.yml        # Site settings (edit only title/baseurl)
-index.md           # Root redirect; do not edit
-A1/ ... A4/        # One folder per assignment
-  ├── index.md     # Front matter; do not edit
-  ├── BRIEF.md     # Assignment brief; do not edit
-  ├── README.md    # Your write-up (keep front matter, edit body)
-  ├── images/      # Diagrams/intermediate/final images
-  └── code files   # Provided scaffolds; extend/replace as needed
-```
-
----
-
-## Checklist Before Publishing
-- [ ] Assignment `README.md` files are complete (no placeholders).
-- [ ] Images are in the correct `images/` folder and referenced with relative paths.
-- [ ] Code runs and matches what you document.
-- [ ] `_config.yml` has your name and correct `baseurl`.
-- [ ] Changes are committed and pushed; GitHub Pages build is green.
-
----
-
-## Troubleshooting
-- **Broken links/styles:** confirm `baseurl` matches your repo name and front matter is untouched.
-- **Missing images:** verify filenames/paths and that images are committed to the right `images/` folder.
-- **Pages not updating:** check the Pages build status in GitHub Actions (or re-save the Pages settings).
-- **Common pitfalls:** editing/deleting front matter, wrong `baseurl`, images stored in the wrong assignment folder.
-
----
-
-## Landing Page Template
-Use the template below to draft your homepage, replacing the entire content of this `README.md`.
-- First, **customize the text**. You are free to use the template below or craft your own.
-- When you are ready to submit, **remove the surrounding code fence** (the triple backticks) so it renders as your landing page.
-- **Delete the guide sections above** for a clean portfolio homepage.
-
-```md
-# <Jakob Skovdal Rasmussen — ACD-E25 Portfolio
+# Jakob Skovdal Rasmussen — ACD-E25 Portfolio
 
 ## Overview
-This portfolio documents four computational design studies developed for *Advanced Computational Design*. Across the series, I investigate <theme> through <methods/tools>, iterating through prototypes, parameter sweeps, and visual evaluation.
+This portfolio documents four computational design studies developed for *Advanced Computational Design*. Across the series, I investigate procedural control simulation through NumPy array programming, recursive algorithms, and agent-based modeling, iterating through prototypes, parameter sweeps, and visual evaluation.
+
 
 ## Assignments
 
 ### A1: NumPy Array Manipulation for 2D Pattern Generation
-In A1, I develop a pixel-based pattern generator using NumPy array operations to transform a blank canvas into structured, colorized images. The work focuses on compositional logic (rules + constraints) and controlled randomness to produce a family of variations.
+In A1, I implemented a 2D Perlin Noise field generator to explore procedural patterning with NumPy. I constructed a grid of gradient vectors, blending their influence using ``fade(t)`` and ``lerp(a, b, t)`` functions to create a seamless continuous pattern. The system expands this 2D scalar data into a 3D RGB array using ``np.stack()``, where I applied channel-specific mathematical transformations (sine, linear, and inverse mappings) to visualize the noise intensity as a complex colorized field.
 
 ### A2: Exploring Fractals through Recursive Geometric Patterns
-In A2, I build a recursive geometric system to explore branching and fractal-like growth. I test how parameter choices (e.g., depth, angle, scaling, and spatial influences) affect density, hierarchy, and legibility of the resulting forms.
+In A2, I build a recursive geometric fractal generator using Matplotlib and Shapely to simulate organic, tree-like structures. The core logic relies on a recursive function, generate_fractal, which applies scaling ratios and branching angles ($\theta_{new} = \theta_{old} \pm \text{angle}$) to achieve self-similarity. To avoid rigid symmetry, I introduced stochastic branch lengths and two geometric forces: a Point Attractor that subtly bends branches toward a target coordinate ($x, y$), and a Uniform Directional Field that biases growth orientation. The final visualization maps line width and color (using the viridis colormap) to the recursion depth, visually distinguishing the hierarchical structure from trunk to tip.
 
 ### A3: Parametric Structural Canopy
-In A3, I design a canopy system driven by a heightmap/field and implemented in Grasshopper/GhPython. I evaluate panelization/tessellation strategies and generate a structural support logic that responds to curvature, span, and local conditions.
+In A3, I designed a canopy system driven by a Perlin Noise heightmap and implemented in Grasshopper/GhPython. The project leveraged NumPy to generate and deform a planar point grid according to the heightmap, which was then used to construct a continuous NURBS surface. This deformed surface was tessellated into planar triangular panels. Crucially, the structural support system was generated using a recursive branching algorithm that starts at ground-level anchors and employs ray-casting to ensure each support member accurately truncates upon intersecting the non-planar canopy surface.
 
 ### A4: Agent-Based Modeling for Surface Panelization
-In A4, I use agent behaviors to sample and rationalize a surface into a panelized system. I define sensing rules and constraints (e.g., proximity, alignment, boundaries) and iterate on behaviors to balance local decisions with global coherence.
+In A4, I implemented an Agent-Based Model (ABM) in GhPython to rationalize the surface geometry from A3 into a panelized system. Agents' movement is fundamentally driven by surface geometry: they use the Principal Curvature Direction for Alignment, ensuring trajectories follow the surface's flow lines. They also apply Resistance proportional to Slope Magnitude, causing them to slow down in steep areas and thereby increasing point density for smaller, more appropriate panels in those zones. A final Separation force manages distribution, and the resulting collected agent paths define the final panelization geometry, where orientation and density are emergent properties of the localized behaviors.
 
-## Highlights (optional)
-- **Technique:** <one technique you used across assignments>
-- **Best result:** <one outcome + where it appears (A#)>
-- **Next step:** <one concrete extension you would test next>
+
+## Highlights
+- **Key Focus:** My core interest lies in applying computational systems to directly inform physical and structural solutions in architecture.
+- **Computational Challenge:** Managing Simulation Stability in A4. Overcoming the Python ``RecursionError`` in the continuous Grasshopper simulation loop by manually increasing the recursion limit (``sys.setrecursionlimit(2000)``) to maintain state persistence across steps.
+- **Next step:** Integrating the depth-based thickness tapering into the recursive support generation (A3) that was initially simplified, allowing the structural members to thin out logically towards the terminal branches.
 
 ## Contact
-- GitHub: <link>
 - Email: jakra22@student.sdu.dk
-```
