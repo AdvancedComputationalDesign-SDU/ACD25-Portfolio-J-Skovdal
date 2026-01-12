@@ -60,7 +60,6 @@ search_exclude: false
           - Right branch: `theta - angle`
        7. Continue recursion until the maximum depth is reached.
 
----
 
 2. **Initialize Parameters**
    - Set `start_point`, `length`, `theta`, `depth`, `max_depth`, `angle`, `ratio`, `initial_width`, `attractor`, `field_strength`, `field_direction`
@@ -68,7 +67,6 @@ search_exclude: false
      random.seed(seed)  # seed recorded in [Parameters & Seeds](#parameters--seeds)
      ```
 
----
 
 3. **Visualization**
    - Collect all line segments stored during recursion.
@@ -79,42 +77,40 @@ search_exclude: false
 
 ## Technical Explanation
 
-
 ### Recursion Logic
 
-1. **Base Case**
-   - The recursion stops when the current depth exceeds `max_depth`.
+The ``generate_fractal`` function is the fundamental element, embodying the rule for creating self-similar growth.
+1. **Base Case**: The function terminates when the current recursion depth exceeds max depth, preventing infinite execution.
 
-2. **Branch Calculation**
-   - The end point of the current branch is calculated using trigonometry:
-     ```python
-     x1 = x0 + length * cos(theta)
-     y1 = y0 + length * sin(theta)
-     ```
-   - `rand_len` introduces slight variation in branch length for a more natural appearance.
+2. **State Transformation**: Each recursive call defines a new state for the child branches, a reduced length ($L_{new} = L_{old} \cdot {ratio}$) and two new angles ($\theta_{new} = \theta_{old} \pm \text{angle}$).
 
-3. **Geometric Influences**
-   - **Attractor Influence:** If defined, branches are slightly bent toward a point:
-     ```python
-     theta += (attract_angle - theta) * 0.1
-     ```
-   - **Field Influence:** Branches are also biased toward a uniform directional field:
-     ```python
-     theta += (field_direction - theta) * field_strength
-     ```
+### Vector Calculation and Geometric Influences
 
-4. **Line Storage**
-   - Each branch is stored as a `LineString` in a global list, along with its depth and initial width.  
-   - This allows all branches to be plotted after recursion completes.
+The position of the new branch end-point $(x_1, y_1)$ is calculated relative to the start-point $(x_0, y_0)$ using basic vector transformation based on the segment's length ($L$) and angle ($\theta$):
+   ```python
+  x1 = x0 + length * cos(theta)
+  y1 = y0 + length * sin(theta)
+   ```
+This calculation uses the modified length, which incorporates variation: 
+- Stochastic Branch Length (``rand_len``): Before the end-point is calculated, the segment's length is randomized within a controlled range. Using ``random.uniform`` the value is used in the end-point calculation, introducing slight variation in branch lengths for a more organic, natural appearance, preventing a rigidly symmetric structure.
 
-5. **Recursive Calls**
-   - Two child branches are created with fixed angles:
-     ```python
-     theta1 = theta + angle
-     theta2 = theta - angle
-     new_length = length * ratio
-     ```
-   - The function recursively calls itself for both child branches until `depth > max_depth`.
+Crucially, the angle $\theta$ is not fixed, it is adjusted before calculation by two geometric forces:
+1. **Attractor Influence**: The angle $\theta$ is subtly bent toward a fixed global point $(a_x, a_y)$. This is achieved by blending the current branch angle with the angle pointing directly at the attractor, introducing asymmetry and curving the branches toward a target.
+   ```python
+   theta += (attract_angle - theta) * 0.1
+   ```
+
+2. **Uniform Directional Field**: The angle $\theta$ is also nudged toward a fixed ``field_direction``. This simulates an external force and is scaled by ``field_strength`` to bias the overall growth orientation.
+   ```python
+   theta += (field_direction - theta) * field_strength
+   ```
+
+### Data Handling and Visualization Mapping
+
+Each branch is stored as a Shapely ``LineString`` object in a global list, along with its recursion depth. This choice is good for two reasons:
+1. **Post-Processing**: It separates the generation phase from the visualization phase.
+2. **Mapping**: By storing the depth, it enables the color and line width of the segment to be mapped based on its hierarchical position after the recursion completes.
+
 
 ### Mathematical Principles
 

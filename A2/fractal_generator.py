@@ -139,7 +139,7 @@ if __name__ == "__main__":
 
 
     # --- Save figure ---
-    plt.savefig("images/fractal_experiment4.png", dpi=300, bbox_inches='tight', pad_inches=0)
+    # plt.savefig("images/fractal_experiment4.png", dpi=300, bbox_inches='tight', pad_inches=0)
     plt.show()
 
     print("Fractal saved!")

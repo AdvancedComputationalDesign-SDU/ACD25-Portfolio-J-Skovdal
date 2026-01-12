@@ -86,10 +86,10 @@ Use the template below to draft your homepage, replacing the entire content of t
 - **Delete the guide sections above** for a clean portfolio homepage.
 
 ```md
-# <Your Name> — ACD-E25 Portfolio
+# <Jakob Skovdal Rasmussen — ACD-E25 Portfolio
 
 ## Overview
-This portfolio documents four computational design studies developed for Advanced Computational Design. Across the series, I investigate <theme> through <methods/tools>, iterating through prototypes, parameter sweeps, and visual evaluation.
+This portfolio documents four computational design studies developed for *Advanced Computational Design*. Across the series, I investigate <theme> through <methods/tools>, iterating through prototypes, parameter sweeps, and visual evaluation.
 
 ## Assignments
 
@@ -110,7 +110,7 @@ In A4, I use agent behaviors to sample and rationalize a surface into a panelize
 - **Best result:** <one outcome + where it appears (A#)>
 - **Next step:** <one concrete extension you would test next>
 
-## Contact (optional)
+## Contact
 - GitHub: <link>
-- Email: <email>
+- Email: jakra22@student.sdu.dk
 ```
