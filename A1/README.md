@@ -70,16 +70,16 @@ search_exclude: false
 
 In this assignment, I began by initializing a blank canvas using `np.zeros()`, creating a 2D array to represent the pixel grid of the image. The canvas dimensions were defined by height and width parameters, determining the resolution of the generated pattern.
 
-To generate the Perlin noise, the canvas was conceptually divided into a grid. A random gradient vector was assigned to each grid point using `np.random.randint()` and predefined vectors. Each pixel’s final noise value was computed based on its distance from the surrounding four grid corners and the dot products between the distance and gradient vectors.
+To generate the perlin noise, the canvas was divided into a grid. A random gradient vector was assigned to each grid point using `np.random.randint()` and predefined vectors. Each pixel’s final noise value was computed based on its distance from the surrounding four grid corners and the dot products between the distance and gradient vectors.
 
 The core of the smoothness relies on two functions:
 - `lerp(a, b, t)` (Linear Interpolation): This fundamental array operation, given by $(a + t * (b - a))$, calculates the weighted average between two values ($a$ and $b$) based on a blending factor ($t$). It is used repeatedly to blend the corner influences first horizontally, and then vertically, creating the continuous noise field.
 
-- `fade(t)` (Smoothing Curve): The function $(6t^5 - 15t^4 + 10t^3)$ is a standard Perlin noise smoothing curve. Its purpose is non-linear—it forces the positional derivative to zero at $t=0$ and $t=1$. This ensures that the blended values approach the grid boundaries very smoothly, effectively eliminating the harsh, visible seams (visual artifacts) that straight linear interpolation would otherwise produce.
+- `fade(t)` (Smoothing Curve): The function $(6t^5 - 15t^4 + 10t^3)$ is a standard perlin noise smoothing curve. Its purpose is non-linear, it forces the positional derivative to zero at $t=0$ and $t=1$. This ensures that the blended values approach the grid boundaries very smoothly, effectively eliminating the harsh, visible seams that straight linear interpolation would otherwise produce.
 
 The resulting raw noise values, which ranged between negative and positive numbers, were normalized to a standard 0–1 scale. This normalization was essential to map the noise data correctly to grayscale intensity values.
 
-To create a colorized version, I used `np.stack()` to extend the 2D array into a 3D RGB array. Each color channel was then manipulated individually, assigning different  relationships to create some variation: the red channel was based on a sine transformation done by `np.sin`, the green channel increased with brightness, and the blue channel decreased with it. This introduced a color transition, corresponding to the noise intensity.
+To create a colorized version, I used `np.stack()` to extend the 2D array into a 3D RGB array. Each color channel was then manipulated individually, assigning different relationships to create some variation: the red channel was based on a sine transformation done by `np.sin`, the green channel increased with brightness, and the blue channel decreased with it. This introduced a color transition, corresponding to the noise intensity.
 
 The final image was clipped to the valid color range *(0-255)* using `np.clip()`, visualized with `plt.imshow()` and saved using `plt.savefig()`, giving both grayscale and colorized visual representations of the generated Perlin noise pattern.
 
