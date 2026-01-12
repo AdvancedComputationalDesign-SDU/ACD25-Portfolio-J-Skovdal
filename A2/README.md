@@ -163,8 +163,17 @@ Each branch is stored as a Shapely ``LineString`` object in a global list, along
 
 ## Results
 
-![Fractal  figure 1](images/fractal_figure1.png) ![Fractal  figure 2](images/fractal_figure2.png)
-![Fractal  figure 3](images/fractal_figure3.png) ![Fractal  figure 4](images/fractal_figure4.png)
+### Fractal 1
+![Fractal  figure 1](images/fractal_figure1.png) 
+
+### Fractal 2
+![Fractal  figure 2](images/fractal_figure2.png)
+
+### Fractal 3
+![Fractal  figure 3](images/fractal_figure3.png) 
+
+### Fractal 4
+![Fractal  figure 4](images/fractal_figure4.png)
 
 
 ## Appearance Mapping
@@ -193,7 +202,7 @@ Each branch is stored as a Shapely ``LineString`` object in a global list, along
 
 ### Parameters and Influences
 | Depth D | Angle Δ | Theta Δ | Length L | Scale s | Width W | Attractor () | Field Δ |
-|---|---|---|---|---|---|---|---|
+|---|---|---| ---|---|---|---|---|
 | 10 | 30° | 90° | 80 | 0.75 | 3.0.5 | (200,250) | 0.15/90° |
 
 |  | Figure 1 | Figure 2 | Figure 3 | Figure 4 |
@@ -228,7 +237,7 @@ The experiments show that even small variations introduced by the seed can meani
 
 ## References
 
-- **Fractal Trees Understanding**: [https://www.jernesto.com/articles/fractal_trees](https://www.jernesto.com/articles/fractal_trees)
-- **Fractal Tree Inspiration**: [https://www.tomchaplin.xyz/blog/2019-03-24-windy-random-fractal-trees/](https://www.tomchaplin.xyz/blog/2019-03-24-windy-random-fractal-trees/)
+- **Fractal Trees Understanding**: [Fractal trees: Recursion, quaternions and Python.](https://www.jernesto.com/articles/fractal_trees)
+- **Fractal Tree Inspiration**: [Windy Random Fractal Trees](https://www.tomchaplin.xyz/blog/2019-03-24-windy-random-fractal-trees/)
 
 ---

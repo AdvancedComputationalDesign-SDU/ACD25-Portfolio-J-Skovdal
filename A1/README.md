@@ -97,9 +97,11 @@ The final image was clipped to the valid color range *(0-255)* using `np.clip()`
 Shown here is the result image, displaying both the grayscale version and the version where a third array has been added as an RGB channel. 
 
 ![Perlin Noise in greyscale](images/perlin_grey.png) 
+
 *Figure 1: The normalized scalar noise field rendered in grayscale.*
 
 ![Perlin Noise with added RGB](images/perlin_rgb.png)
+
 *Figure 2: The final output where scalar values are mapped to RGB channels using sine and linear functions.*
 
 ---
