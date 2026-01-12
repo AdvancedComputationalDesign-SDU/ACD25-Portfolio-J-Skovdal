@@ -28,7 +28,7 @@ search_exclude: false
 
 ## Project Overview
 
-This project implements a recursive geometric fractal generator, utilizing Matplotlib and Shapely, to create complex, organic tree-like structures. The core recursive algorithm applies geometric rules (scaling and rotation) to achieve self-similarity. To ensure a natural, non-rigid appearance, the fractal's growth path is influenced by stochastic variation in branch length, a point attractor, and a uniform directional field. Final visualization maps line color and width based on the branch's recursion depth, effectively highlighting the hierarchical structure.
+This project implements a recursive geometric fractal generator, utilizing Matplotlib and Shapely, to create complex, organic tree-like structures. The core recursive algorithm applies geometric rules (scaling and rotation) to achieve self-similarity. To ensure a natural, non-rigid appearance, the fractal's growth path is influenced by stochastic variation in branch length, a point attractor and a uniform directional field. Final visualization maps line color and width based on the branch's recursion depth, effectively highlighting the hierarchical structure.
 
 ---
 

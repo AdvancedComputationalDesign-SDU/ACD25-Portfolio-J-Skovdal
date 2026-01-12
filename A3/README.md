@@ -214,7 +214,7 @@ Return panels.
 ---
 
 #### `get_user_or_random_anchors(user_anchors, surf, fallback_count)`
-**Description**: Uses user-provided anchor points; if none are provided, generates random points on the surface, and projects all valid points to the **Z=0 ground plane** to create the root GUIDs.
+**Description**: Uses user-provided anchor points; if none are provided, generates random points on the surface and projects all valid points to the **Z=0 ground plane** to create the root GUIDs.
 
 **Inputs**: `user_anchors` (list of point inputs, optional), `surf` (surface identifier), `fallback_count` ((int) number of random points to generate if `user_anchors` is empty).
 
@@ -366,7 +366,7 @@ The final structural canopy is generated through a controlled sequence of geomet
 | Recursive Accumulation Failure | The initial recursive function structure failed to reliably collect all generated support GUIDs, often resulting in an empty or incomplete output list (`supports = []`). This was due to errors in handling local list scopes within the nested recursive calls. | Refactored the `recursive_branch` function to initialize and return a local list (`segment_results`) of GUIDs, which is explicitly captured and merged (`list.extend()`) by the parent function call, ensuring all geometry is collected up the call stack. |
 | Silent Pipe Creation Failure | Very short line segments (e.g., last branches hitting the canopy at a shallow angle or microscopic errors) caused the geometry function `rs.AddPipe` to fail, returning `None` GUIDs which brooke the geometry list. | Implemented a check (`segment_length > MIN_LENGTH_THRESHOLD`) before line creation. This ensures that only segments with sufficient length are piped, preventing failures caused by degenerate geometry. |
 | Missing Anchor Input | The script depends on the mandatory `Anchor Points` list. When this input is empty, the script silently exits without creating geometry, confusing the user. | Implemented a **Fallback Anchor Generation Protocol**. If the `Point` list is empty, it requires a preceding component (like **Populate Geometry**) to automatically scatter default anchor points onto the base surface. |
-| Complex Tapered Geometry | The initial attempt to implement depth-based thickness tapering was unstable, complex to debug, and prone to failures when radii became extremely small near terminal branches. | Simplified the geometry by using a single, constant `pipe_radius` for both the start and end of every branch segment. |
+| Complex Tapered Geometry | The initial attempt to implement depth-based thickness tapering was unstable, complex to debug and prone to failures when radii became extremely small near terminal branches. | Simplified the geometry by using a single, constant `pipe_radius` for both the start and end of every branch segment. |
 ---
 
 ## References and AI Acknowledgments
