@@ -1,4 +1,3 @@
-#r: numpy
 import numpy as np
 import rhinoscriptsyntax as rs
 import Rhino.Geometry as rg

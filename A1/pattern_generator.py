@@ -1,17 +1,19 @@
-## Assignment 1: NumPy Array Manipulation for 2D Pattern Generatione
-
-
 import numpy as np
 import matplotlib.pyplot as plt
 
 
-# --- Initializing canvas ---
+# -------------------------------
+# INITIALIZING CANVAS
+# -------------------------------
 
 canvas_height = 500
 canvas_width = 500
 canvas = np.zeros((canvas_height, canvas_width))
 
-# --- Defining functions ---
+
+# -------------------------------
+# DEFINING FUNCTIONS
+# -------------------------------
 
 def fade(t):  # fade function smooths the interpolation
     return 6*t**5 - 15*t**4 + 10*t**3  # without this, the linear interpolation would look jagged and mechanical at grid cell boundaries
@@ -26,9 +28,11 @@ def generate_gradients(canvas_height, canvas_width):
     return gradients
 
 
-# --- Computing number of grid points---
+# -------------------------------
+# COMPUTING NUMBER OF GRID POINTS
+# -------------------------------
 
-scale = 20  # Smaller scale = more detailed noise
+scale = 20  # smaller scale = more detailed noise
 
 grid_height = canvas_height // scale + 2  # adding +2 to avoid indexing issues
 grid_width = canvas_width // scale + 2
@@ -37,7 +41,9 @@ grid_width = canvas_width // scale + 2
 gradients = generate_gradients(grid_height, grid_width)  # creating a grid of random gradient vectors
 
 
-# --- Generating noise pattern ---
+# -------------------------------
+# GENERATING NOISE PATTERN
+# -------------------------------
 
 # Loop through each pixel on the canvas // Computing noise for each pixel individually
 for i in range(canvas_height):  # vertical position (row)
@@ -78,7 +84,9 @@ for i in range(canvas_height):  # vertical position (row)
         canvas[i, j] = lerp(nx0, nx1, v)  # this gives the final noise value for each pixel
 
 
-# --- Normalizing values ---
+# -------------------------------
+# NORMALIZING VALUES
+# -------------------------------
 
 # The noise can have both negative and positive values.
 canvas = (canvas - canvas.min()) / (canvas.max() - canvas.min())  # rescaling to 0–1 range
@@ -92,7 +100,9 @@ plt.savefig('images/perlin_grey.png', bbox_inches='tight', pad_inches=0)
 plt.show()
 
 
-# --- Colorizing greyscale ---
+# -------------------------------
+# COLORIZING GREYSCALE
+# -------------------------------
 
 canvas_rgb = np.stack((canvas, canvas, canvas), axis=2) # adds new color channel dimension
 

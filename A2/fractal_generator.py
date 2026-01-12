@@ -1,26 +1,32 @@
-"""
-Assignment 2: Exploring Fractals through Recursive Geometric Patterns
-
-Author: Jakob Rasmussen
-"""
-
 import math
 import numpy as np
 import matplotlib.pyplot as plt
 from shapely.geometry import LineString
 import random
 
-# --- Global List ---
+
+# -------------------------------
+# GLOBAL LIST
+# -------------------------------
+
 line_list = []
 
-# --- Utility Functions ---
+
+# -------------------------------
+# UTILITY FUNCTIONS
+# -------------------------------
+
 def get_color(depth, max_depth):
     return plt.cm.viridis(1 - depth / max_depth)
 
 def get_line_width(depth, initial_width, max_depth):
     return max(0.5, initial_width * (1 - depth / max_depth))
 
-# --- Recursive Fractal Function ---
+
+# -------------------------------
+# RECURSIVE FRACTAL FUNCTION
+# -------------------------------
+
 def generate_fractal(start_point, length, theta, depth, max_depth, angle, ratio, initial_width, attractor=None, field_strength=0.1, field_direction=np.pi/2):  # set base values for influences
     """
     Parameters:
@@ -38,6 +44,7 @@ def generate_fractal(start_point, length, theta, depth, max_depth, angle, ratio,
     - field_strength: Float (0–1), influence strength of the directional field.
     - field_direction: Float (radians), uniform field direction influencing growth.
     """
+
     if depth > max_depth:
         return
 
@@ -81,7 +88,11 @@ def generate_fractal(start_point, length, theta, depth, max_depth, angle, ratio,
     generate_fractal(end_point, new_length, theta1, next_depth, max_depth, angle, ratio, initial_width, attractor, field_strength, field_direction)  # recurse left branch
     generate_fractal(end_point, new_length, theta2, next_depth, max_depth, angle, ratio, initial_width, attractor, field_strength, field_direction)  # recurse right branch
 
-# --- Main Execution ---
+
+# -------------------------------
+# MAIN EXECUTION
+# -------------------------------
+
 if __name__ == "__main__":
 
     # --- Parameters ---
