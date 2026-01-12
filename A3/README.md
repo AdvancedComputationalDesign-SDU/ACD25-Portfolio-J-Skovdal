@@ -329,20 +329,20 @@ The final structural canopy is generated through a controlled sequence of geomet
 |    B   |   10  |   10  |      5.0      |  40  |  40  |    1.5    |  4.0  | triangles (true) |     5     |    2.0    |     0.9    |      2     |     0.04    |   7  |
 |    C   |   40  |   30  |      7.5      |  40  |  40  |    5.0    |  3.6  | quads    (false) |     7     |    5.0    |     0.7    |      2     |     0.10    |  33  |
 
-1. **Variation A**
+### 1. Variation A
 
    ![Variation A Front View](images/Canopy_DesignA_Front.png)
    ![Variation A Side View](images/Canopy_DesignA_Right.png)
     ![Variation A Two Point Perspective View](images/Canopy_DesignA_TPP.png)
 
 
-2. **Variation B**
+### 2. Variation B
 
    ![Variation B Front View](images/Canopy_DesignB_Front.png)
    ![Variation B Side View](images/Canopy_DesignB_Right.png)
    ![Variation B Two Point Perspective View](images/Canopy_DesignB_TPP.png)
 
-3. **Variation C**
+### 3. Variation C
 
    ![Variation C Front View](images/Canopy_DesignC_Front.png)
    ![Variation C Side View](images/Canopy_DesignC_Right.png)
