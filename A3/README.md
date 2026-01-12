@@ -337,9 +337,9 @@ The final structural canopy is generated through a controlled sequence of geomet
 
 2. **Variation B**
 
-   ![Variation B Front View](images\Canopy_DesignB_Front.png)
+   ![Canopy_DesignB_Front](images\Canopy_DesignB_Front.png)
    ![Variation B Side View](images\Canopy_DesignB_Right.png)
-   ![Variation A Two Point Perspective View](images\Canopy_DesignA_TPP.png)
+   ![Variation B Two Point Perspective View](images\Canopy_DesignB_TPP.png)
 
 3. **Variation C**
 
