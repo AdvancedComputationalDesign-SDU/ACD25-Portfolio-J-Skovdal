@@ -14,10 +14,17 @@ search_exclude: false
 
 ## Table of Contents
 
+- [Project Overview](#project-overview)
 - [Pseudo-Code](#pseudo-code)
 - [Technical Explanation](#technical-explanation)
 - [Results](#results)
 - [References](#references)
+
+---
+
+## Project Overview
+
+This project implements a 2D Perlin Noise field generator using NumPy arrays. It defines a grid of gradient vectors whose influence is smoothly blended across the canvas using ``fade(t)`` and ``lerp(a, b, t)`` to create a continuous pattern. After normalizing the noise, the 2D data is expanded to 3D RGB. For a creative design, an array offset ``np.stack()`` is applied to the Red and Blue channels. Finally, channel-specific mathematical transformations (``np.stack()``, linear, inverse linear) map intensity to a custom color palette, demonstrating advanced array manipulation for procedural content generation.
 
 ---
 
