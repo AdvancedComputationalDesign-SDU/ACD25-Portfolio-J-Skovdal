@@ -384,4 +384,5 @@ The final structural canopy is generated through a controlled sequence of geomet
     - *"I am getting a 'NameError: segment_results is not defined' inside a nested recursive function. Why is this happening and how should I initialize the list."*
     - *"How do I use RhinoCommon to check for the intersection between a straight Rhino.Geometry.Curve and a closed Brep?"*
     - *"Review the signature for my generate_supports function and suggest how to correctly incorporate the new pipe_radius argument and update the internal calls to use it "*
+    
 ---
