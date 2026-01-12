@@ -330,22 +330,22 @@ The final structural canopy is generated through a controlled sequence of geomet
 
 1. **Variation A**
 
-   ![Variation A Front View](images\Canopy_DesignA_Front.png)
-   ![Variation A Side View](images\Canopy_DesignA_Right.png)
-    ![Variation A Two Point Perspective View](images\Canopy_DesignA_TPP.png)
+   ![Variation A Front View](images/Canopy_DesignA_Front.png)
+   ![Variation A Side View](images/Canopy_DesignA_Right.png)
+    ![Variation A Two Point Perspective View](images/Canopy_DesignA_TPP.png)
 
 
 2. **Variation B**
 
-   ![Variation B Front View](images\Canopy_DesignB_Front.png)
-   ![Variation B Side View](images\Canopy_DesignB_Right.png)
-   ![Variation B Two Point Perspective View](images\Canopy_DesignB_TPP.png)
+   ![Variation B Front View](images/Canopy_DesignB_Front.png)
+   ![Variation B Side View](images/Canopy_DesignB_Right.png)
+   ![Variation B Two Point Perspective View](images/Canopy_DesignB_TPP.png)
 
 3. **Variation C**
 
-   ![Variation C Front View](images\Canopy_DesignC_Front.png)
-   ![Variation C Side View](images\Canopy_DesignC_Right.png)
-   ![Variation C Two Point Perspective View](images\Canopy_DesignC_TPP.png)
+   ![Variation C Front View](images/Canopy_DesignC_Front.png)
+   ![Variation C Side View](images/Canopy_DesignC_Right.png)
+   ![Variation C Two Point Perspective View](images/Canopy_DesignC_TPP.png)
 
 
 ---
