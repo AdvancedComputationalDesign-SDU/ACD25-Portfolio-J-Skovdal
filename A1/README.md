@@ -11,6 +11,7 @@ search_exclude: false
 
 [View on GitHub]({{ site.github.repository_url }})
 
+
 ## Table of Contents
 
 - [Pseudo-Code](#pseudo-code)
@@ -23,47 +24,45 @@ search_exclude: false
 ## Pseudo-Code
 
 1. **Initialize Variables**
-   - Set canvas height and width.
-   - Choose a scale value to control the detail level of the pattern.
+   - Define the canvas dimensions (height and width) to determine the resolution.
+   - Set the scale factor (frequency) to control the size and complexity of the noise features.
+   - Initialize the 2D canvas array using `np.zeros()`.
 
 2. **Define Helper Functions**
-   - **Fade function**: smooths transitions between values for continuity.
-        - `fade`: Applies a smoothing curve to the relative distance coordinates to ease the transition near grid edges.
-   - **Interpolation function**: blends between two values.
-        - `lerp`: detailed weighted averaging:
-            - Blend the top two corners together based on the horizontal position.
-            - Blend the bottom two corners together based on the horizontal position.
-            - Blend those two results together based on the vertical position.
-   - **Gradient generator**: assigns a random direction to each grid point; gradients influence pixel values to shape the noise.
+   - **Gradient Generator**: Functionally create a grid of randomly oriented unit vectors (gradients) that influence the resulting noise in each cell.
+   - **Fade function** (`fade`): Apply a non-linear smoothing curve to interpolation factors to prevent visual discontinuities (seams) at the boundaries between grid cells.
+   - **Interpolation function** (`lerp`): Implement a weighted average formula to smoothly blend between two calculated values.
 
 3. **Prepare the Grid**
-   - Divide the canvas into cells based on the chosen scale.
-   - Assign one gradient vector to each corner of the cells.
+   - Calculate the required grid size based on the canvas dimensions and scale factor.
+   - Execute the Gradient Generator to assign a unique random gradient vector to every corner point of the grid.
 
 4. **Generate Noise Pattern**
    - For each pixel in the canvas:
-      - Determine which cell the pixel belongs to.
-      - Calculate relative position of the pixel inside the cell (0 to 1).
-      - Compute how much each corner gradient affects the pixel.
-      - Interpolate the corner contributions to get a single value for the pixel.
+      - Determine the four surrounding grid corner coordinates that define the pixel's containing cell.
+      - Calculate the pixel's relative position (fractional distance from 0 to 1) within that cell.
+      - Compute the influence of each of the four corner gradients by calculating the dot product between the corner's gradient vector and the distance vector to the pixel.
+      - Apply the **fade function** (`fade`) to the relative position coordinates to get smoothed interpolation weights.
+      - Use the **interpolation function** (`lerp`) to blend the four corner influences: first horizontally (creating top and bottom edge values), and then vertically (blending the top and bottom edge values) to get the final noise value for that pixel.
 
 5. **Normalize Values**
-   - Rescale all pixel values to a consistent range (0 to 1).
+   - Rescale the entire array of raw noise values (which are typically in a negative to positive range) to a consistent 0 to 1 range. This prepares the data for mapping to grayscale and color intensity.
 
 6. **Visualize and Save Grayscale Image**
-   - Use Matplotlib to display the pattern as a grayscale image.
-   - Save the image to the `images/` folder.
+   - Map the normalized 0-1 noise array to a grayscale image (0=black, 1=white).
+   - Display and save the resulting 2D grayscale pattern.
 
 7. **Add Color (RGB Transformation)**
-   - Expand the 2D grayscale array into three channels (Red, Green, Blue).
-   - Map grayscale intensity to colors:
-      - Dark areas → blue.
-      - Mid-tones → red.
-      - Bright areas → green.
-
+   - Expand the 2D array into a 3D array with three channels (R, G, B) using `np.stack()`.
+   - Introduce complexity by creating a slightly offset version of the base noise array to be used for the Red and Blue channels.
+   - Apply channel-specific mathematical transformations to the noise data to assign color:
+      - Red: Map using a sine function to emphasize mid-tones.
+      - Green: Map linearly to increase with brightness.
+      - Blue: Map inversely to dominate dark areas.
+   - Clip the final 3D array values to the valid color range (0-255)
+   
 8. **Display and Save Colorized Image**
-   - Use Matplotlib to display the colorized image.
-   - Save the image to the `images/` folder.
+   - Display and save the final 3D colorized image.
 
 ---
 
@@ -71,9 +70,14 @@ search_exclude: false
 
 In this assignment, I began by initializing a blank canvas using `np.zeros()`, creating a 2D array to represent the pixel grid of the image. The canvas dimensions were defined by height and width parameters, determining the resolution of the generated pattern.
 
-To generate the Perlin noise, I divided the canvas into a grid and assigned a random gradient vector to each grid point using `np.random.randint()` combined with predefined vector direction using `np.array()`. Each pixel’s noise value was computed based on its distance from surrounding grid corners and the dot products between distance and gradient vectors. The `fade()` function $(6t^5 - 15t^4 + 10t^3)$ was applied to smooth the interpolation, and `lerp()` (linear interpolation) $(a + t * (b - a))$ was used to blend values between the corners, ensuring smooth transitions across the pattern.
+To generate the Perlin noise, the canvas was conceptually divided into a grid. A random gradient vector was assigned to each grid point using `np.random.randint()` and predefined vectors. Each pixel’s final noise value was computed based on its distance from the surrounding four grid corners and the dot products between the distance and gradient vectors.
 
-The resulting noise values, which ranged between negative and positive numbers, were normalized to a 0–1 scale. This normalization step was essential to map the noise data correctly to grayscale intensity values.
+The core of the smoothness relies on two functions:
+- `lerp(a, b, t)` (Linear Interpolation): This fundamental array operation, given by $(a + t * (b - a))$, calculates the weighted average between two values ($a$ and $b$) based on a blending factor ($t$). It is used repeatedly to blend the corner influences first horizontally, and then vertically, creating the continuous noise field.
+
+- `fade(t)` (Smoothing Curve): The function $(6t^5 - 15t^4 + 10t^3)$ is a standard Perlin noise smoothing curve. Its purpose is non-linear—it forces the positional derivative to zero at $t=0$ and $t=1$. This ensures that the blended values approach the grid boundaries very smoothly, effectively eliminating the harsh, visible seams (visual artifacts) that straight linear interpolation would otherwise produce.
+
+The resulting raw noise values, which ranged between negative and positive numbers, were normalized to a standard 0–1 scale. This normalization was essential to map the noise data correctly to grayscale intensity values.
 
 To create a colorized version, I used `np.stack()` to extend the 2D array into a 3D RGB array. Each color channel was then manipulated individually, assigning different  relationships to create some variation: the red channel was based on a sine transformation done by `np.sin`, the green channel increased with brightness, and the blue channel decreased with it. This introduced a color transition, corresponding to the noise intensity.
 

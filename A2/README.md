@@ -11,6 +11,7 @@ search_exclude: false
 
 [View on GitHub]({{ site.github.repository_url }})
 
+
 ## Table of Contents
 
 - [Pseudo-Code](#pseudo-code)
